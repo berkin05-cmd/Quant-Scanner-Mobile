@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Android derleme araclarini kur
+      - name: Sistem paketlerini kur
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -31,6 +31,29 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install buildozer cython
+
+      - name: Android SDK hazirla
+        working-directory: android
+        run: |
+          buildozer android update || true
+
+          SDK="$HOME/.buildozer/android/platform/android-sdk"
+
+          SDKMANAGER=$(find "$SDK" -type f -name sdkmanager | head -n 1)
+
+          echo "SDKMANAGER=$SDKMANAGER"
+
+          if [ -z "$SDKMANAGER" ]; then
+            echo "sdkmanager bulunamadi"
+            exit 1
+          fi
+
+          yes | "$SDKMANAGER" --licenses || true
+
+          "$SDKMANAGER" \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0"
 
       - name: APK olustur
         working-directory: android
