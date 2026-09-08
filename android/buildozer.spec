@@ -5,7 +5,7 @@ package.domain = com.quantscanner
 source.dir = .
 source.include_exts = py,txt,png,jpg,kv
 version = 1.0
-requirements = python3,kivy
+requirements = python3==3.11.9,kivy==2.3.1
 orientation = portrait
 fullscreen = 0
 android.permissions = INTERNET,ACCESS_NETWORK_STATE
