@@ -1,0 +1,21 @@
+ANDROID APK
+   |
+   | HTTP / Wi-Fi
+   v
+FASTAPI SUNUCU
+   |
+   +-- 714 sembol
+   +-- Teknik analiz
+   +-- Temel analiz
+   +-- Makro / jeopolitik
+   +-- Sosyal duyarlılık
+   +-- Capital Protection
+   +-- Dip Hunter
+   +-- Backtest 2/3/5 gün + MAE
+   |
+   v
+SONUÇLAR
+   +-- En Güçlü
+   +-- Dipten Dönüş
+   +-- Backtest Liderleri
+   +-- Risk Radarı
