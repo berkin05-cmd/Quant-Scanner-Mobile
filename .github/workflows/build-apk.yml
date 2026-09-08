@@ -11,33 +11,54 @@ jobs:
       - name: Projeyi al
         uses: actions/checkout@v4
 
-      - name: Python kur
+      - name: Python 3.11 kur
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.11"
+
+      - name: Java 17 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
 
       - name: Sistem paketlerini kur
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            git zip unzip \
-            openjdk-17-jdk \
-            autoconf libtool pkg-config \
+            git \
+            zip \
+            unzip \
+            autoconf \
+            automake \
+            libtool \
+            libltdl-dev \
+            pkg-config \
             zlib1g-dev \
-            libncurses5-dev libncursesw5-dev \
-            cmake libffi-dev libssl-dev
+            libncurses5-dev \
+            libncursesw5-dev \
+            cmake \
+            libffi-dev \
+            libssl-dev
 
       - name: Buildozer kur
         run: |
           python -m pip install --upgrade pip
-          pip install "cython==3.0.11"
-          pip install "buildozer==1.5.0"
+          python -m pip install "cython==3.0.11"
+          python -m pip install "buildozer==1.5.0"
 
-      - name: APK olustur
+      - name: Eski derlemeyi temizle
         working-directory: android
         run: |
           rm -rf .buildozer
-          yes | buildozer -v android debug
+          rm -rf bin
+
+      - name: APK olustur
+        working-directory: android
+        env:
+          PYTHONFORANDROID_PREREQUISITES_INSTALL_INTERACTIVE: "0"
+        run: |
+          buildozer -v android debug
 
       - name: APK yukle
         uses: actions/upload-artifact@v4
